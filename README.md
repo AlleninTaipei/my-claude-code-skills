@@ -12,7 +12,9 @@
 │   └── md2course.md
 └── skills
     ├── codebase-to-course
-    └── frontend-slides
+    ├── frontend-slides
+    ├── knowledge-youtube-to-markdown
+    └── video-to-editable-slides
 ```
 
 ## Skills
@@ -38,6 +40,28 @@
 - 支援匯出為 PDF 或部署到 Vercel 取得可分享的網址.
 
 觸發方式: 使用者要求製作簡報, 將 PPT/PPTX 轉為網頁版, 或需要一份用於演講或提案的投影片.
+
+### knowledge-youtube-to-markdown
+
+將知識型的 YouTube 影片或整個頻道的影片批次轉換為有明確來源依據, 易於閱讀的 Markdown 學習筆記.
+
+- 支援單一影片與頻道/播放清單兩種模式, 批次處理時會先建立清單並套用使用者指定的篩選條件.
+- 內容來源優先順序為: 創作者提供的字幕, 原始語言的自動字幕, 使用者提供的逐字稿, 或本地轉錄的音訊/影片.
+- 產出內容為改寫過的學習筆記而非逐字稿, 並明確區分原始來源內容與編輯者補充的說明.
+- 批次處理會建立 README.md 作為索引, 並以 batch-status.json 記錄可續跑的處理狀態.
+
+觸發方式: 要求將 YouTube 影片或頻道轉換為 Markdown 筆記, 涉及字幕, 逐字稿, 教學摘要或影片索引等需求.
+
+### video-to-editable-slides
+
+將簡報型態的影片還原重建為可編輯的 PowerPoint 投影片與對應的獨立 PDF 檔案.
+
+- 從影片中擷取中繼資料, 字幕, 章節, 具代表性的畫面截圖, 轉場與視覺風格, 以及口白內容.
+- 會合併漸進式動畫的多個畫面狀態, 判斷哪些元素應重建為可編輯物件, 哪些應保留為畫面截圖.
+- 提供忠實重現, 專業重製, 僅大綱三種重建模式, 預設採用專業重製.
+- 不依賴 Microsoft PowerPoint, 以 python-pptx 產生 pptx, 以 ReportLab 直接產生對應的 16:9 PDF.
+
+觸發方式: 提供 YouTube 連結或本地影片檔案, 要求還原為可編輯的投影片檔案.
 
 ## Commands
 
