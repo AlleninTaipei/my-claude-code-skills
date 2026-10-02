@@ -6,6 +6,7 @@
 
 ```
 .
+├── .gitignore
 ├── CLAUDE.md
 ├── commands
 │   ├── learndoc.md
@@ -85,8 +86,26 @@
 
 將一份 Markdown 筆記或文件檔案轉換為自成一體的互動式學習用 HTML 頁面, 視覺風格採用深色主題, 每個章節依內容類型自動搭配對應的互動元件, 例如步驟導覽, 對照面板, 參數卡片等.
 
+## CLAUDE.md
+
+全域偏好設定, 可放在 `~/.claude/CLAUDE.md` 套用到所有專案. 內容包含:
+
+- 未指定專案目錄時, 不主動讀取工作目錄以外的檔案.
+- Markdown 生成慣例: 不用粗體與 emoji, 不用全形破折號與頓號, 標點採半形並在後方加空格.
+
+## 外部依賴
+
+各 skill 依需要使用下列工具, 未安裝時 skill 會先檢查並提示, 或改走替代路線.
+
+| Skill | 依賴 |
+| --- | --- |
+| frontend-slides | Node.js 與 Playwright (匯出 PDF), Vercel CLI (部署) |
+| knowledge-youtube-to-markdown | yt-dlp (擷取字幕), 本地轉錄工具 (無字幕時) |
+| programmatic-video | Python: numpy, opencv-python, Pillow, av; 選用影像生成 MCP |
+| video-to-editable-slides | yt-dlp, opencv-python, Pillow; 選用 ffmpeg; 輸出 pptx/PDF 時需 python-pptx, reportlab, pypdf |
+
 ## 使用方式
 
 1. 將本儲存庫的 skills 與 commands 目錄內容複製或連結至 Claude Code 的設定路徑下 (例如 `~/.claude/skills` 與 `~/.claude/commands`).
-2. Skill 的使用需由使用者以 slash command 明確發起, Claude Code 不會自動判斷並觸發.
+2. Skill 可用 `/<skill-name>` 明確呼叫, 也會在對話內容符合其描述時由 Claude Code 自動觸發.
 3. 使用 `/learndoc` 或 `/md2course` 時, 依照各自檔案中的說明操作即可.
