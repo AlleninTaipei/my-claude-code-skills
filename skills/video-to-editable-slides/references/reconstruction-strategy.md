@@ -26,7 +26,7 @@
 
 - Use the narration to recover intent, examples, and transitions.
 - Keep only the words necessary to understand the slide without audio.
-- Move detailed explanation into speaker notes when the output format supports it.
+- Move detailed explanation into the slide `notes` field; Markdown and HTML render it below the slide.
 - Preserve important numbers, named tools, commands, comparisons, and qualifications.
 - Mark uncertain OCR or illegible values instead of inventing them.
 
@@ -55,12 +55,15 @@
       "elements": [
         {"type": "card", "heading": "Idea", "body": "Explanation", "accent": "#F49A19"}
       ],
+      "notes": "Optional speaker notes, rendered by the Markdown and HTML builders.",
       "source_time": 42.0
     }
   ]
 }
 ```
 
-Supported layouts in the generic builder: `cover`, `bullets`, `cards`, `comparison`, `process`, `quote`, and `image`.
+Supported layouts in every builder: `cover`, `bullets`, `cards`, `comparison`, `process`, `quote`, and `image`.
 
 Supported element types: `bullet`, `card`, `step`, `quote`, and `image`. Use `path` for local images and `caption` for attribution.
+
+One specification drives all outputs. `build_md.py` and `build_html.py` are the default deliverables; `build_pptx.py` and `build_pdf.py` run only when the user requests those formats.

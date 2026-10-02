@@ -1,6 +1,6 @@
 # my-claude-code-skills
 
-個人的 Claude Code 自訂 Skills 與 Slash Commands 集合. 用於擴充 Claude Code 在教學內容產生, 簡報製作與文件撰寫上的能力.
+個人的 Claude Code 自訂 Skills 與 Slash Commands 集合. 用於擴充 Claude Code 在教學內容產生, 簡報製作, 影片製作與文件撰寫上的能力.
 
 ## 目錄結構
 
@@ -14,6 +14,7 @@
     ├── codebase-to-course
     ├── frontend-slides
     ├── knowledge-youtube-to-markdown
+    ├── programmatic-video
     └── video-to-editable-slides
 ```
 
@@ -52,16 +53,27 @@
 
 觸發方式: 要求將 YouTube 影片或頻道轉換為 Markdown 筆記, 涉及字幕, 逐字稿, 教學摘要或影片索引等需求.
 
+### programmatic-video
+
+完全以程式產生含配樂的宣傳片, 產品廣告, 預告片或片頭, 不需要 ffmpeg 執行檔.
+
+- 以 NumPy, OpenCV, PIL 逐格繪製畫面, 程序化合成配樂與音效, 再以 PyAV 輸出 MP4.
+- 提供共用模組 videokit.py, 涵蓋緩動, 雜訊, 文字, 剪影邊緣光, 後製調色, 音訊混音與平行編碼.
+- 需要寫實人物時, 可搭配 PixelForge 等影像/影片生成 MCP 產生片段後再剪接調色.
+- 附四個完整案例原始碼 (手機廣告, 主機板廣告, 影集預告, 寫實人物預告), 以及驗證成品串流, 長度與音量的腳本.
+
+觸發方式: 要求以程式製作或渲染影片, 廣告, 宣傳片, 預告片或片頭.
+
 ### video-to-editable-slides
 
-將簡報型態的影片還原重建為可編輯的 PowerPoint 投影片與對應的獨立 PDF 檔案.
+將簡報型態的影片還原重建為結構化的投影片, 預設輸出可編輯的 Markdown 與自成一體的 HTML 簡報, 依需求另外產生 PowerPoint 與 PDF.
 
 - 從影片中擷取中繼資料, 字幕, 章節, 具代表性的畫面截圖, 轉場與視覺風格, 以及口白內容.
 - 會合併漸進式動畫的多個畫面狀態, 判斷哪些元素應重建為可編輯物件, 哪些應保留為畫面截圖.
 - 提供忠實重現, 專業重製, 僅大綱三種重建模式, 預設採用專業重製.
-- 不依賴 Microsoft PowerPoint, 以 python-pptx 產生 pptx, 以 ReportLab 直接產生對應的 16:9 PDF.
+- 所有格式由同一份投影片規格 JSON 產生. Markdown 與 HTML 只用 Python 標準函式庫; pptx 使用 python-pptx, PDF 使用 ReportLab, 皆不依賴 Microsoft PowerPoint.
 
-觸發方式: 提供 YouTube 連結或本地影片檔案, 要求還原為可編輯的投影片檔案.
+觸發方式: 提供 YouTube 連結或本地影片檔案, 要求還原為投影片.
 
 ## Commands
 
