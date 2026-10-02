@@ -1,6 +1,6 @@
 # 程序化配樂與音效
 
-全部用 NumPy 合成, 工具在 `scripts/videokit.py` 的 `Mixer`. 範例: `examples/taichi/audio.py` (電子), `examples/got/audio.py` (史詩).
+全部用 NumPy 合成, 工具在 `scripts/videokit.py` 的 `Mixer`. 範例: `examples/taichi/audio.py` (電子), `examples/got/audio.py` (史詩), `examples/jb/audio.py` (驚悚, 諜報).
 
 ## 先定節奏
 
@@ -14,6 +14,7 @@
 |---|---|
 | 科技產品 | 4/4 kick, 反拍 hi-hat, 拍手在 2/4 拍, 反拍貝斯, 隨 kick 做 sidechain 的襯底和弦, 段落間 riser 加 whoosh, 16 分音符琶音 |
 | 史詩, 奇幻 | 低音持續音, 大提琴固定音型 (8 分音符, 帶顫音), 太鼓, braam (低音銅管叢集, 濾波逐漸打開), 合唱 'ah' (鋸齒波經過 800/1150/2900 Hz 共振峰), 風聲 |
+| 驚悚, 諜報 | 16 分音符弦樂斷奏 (鋸齒波, 每小節換和弦), 8 分音符貝斯, 腳踏鈸, 監控嗶聲, 打字聲, riser 後先靜 0.03 秒再 boom, 快剪時每個剪接點一記小 braam, 結尾前 0.35 秒靜音 |
 | 精品, 極簡 | 少量音符, 鐘聲 (正弦波加泛音), 長殘響, 一兩個重點 boom |
 
 ## 音色做法

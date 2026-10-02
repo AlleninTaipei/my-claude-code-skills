@@ -5,7 +5,7 @@ description: Create promo videos, product commercials, trailers, title sequences
 
 # Programmatic Video
 
-用程式產生有配樂的宣傳片. 已用四個案例驗證過: 5 秒手機廣告, 30 秒主機板廣告, 30 秒影集預告 (剪影人物), 13 秒寫實人物預告 (AI 生成).
+用程式產生有配樂的宣傳片. 已用四個案例驗證過: 5 秒手機廣告, 30 秒主機板廣告, 30 秒影集預告 (剪影人物), 30 秒寫實人物諜報預告 (AI 混合).
 
 ## 檔案
 
@@ -19,7 +19,7 @@ description: Create promo videos, product commercials, trailers, title sequences
   - `iphone17/`: 單檔. 2D SDF 手機, 假 3D 旋轉.
   - `taichi/`: 透視相機, 平面貼圖, 凸起物件, 資料脈衝, HUD.
   - `got/`: 骨架剪影人物, 龍, 鐵王座, 火, 雪, 遮幅, 史詩配樂.
-  - `knight/`: AI 生成片段的剪接, 調色和標題 (會 import `../got` 的模組).
+  - `jb/`: AI 混合的 30 秒諜報預告. 5 段生成鏡頭, 加上程式做的打字機字卡, 監視器介面與行人追蹤, 訊號地圖, 甩鏡, 快剪標語, 片尾字卡, 驚悚配樂. 只依賴 `scripts/videokit.py`.
 
 在專案程式裡引用工具模組時, Windows 要用正斜線路徑, Git Bash 的 `/c/Users/...` 格式 Python 不認得:
 
@@ -59,6 +59,7 @@ from videokit import *
 - 選一個 BPM, 讓每段剛好是整數小節.
 - 每段 4 到 5 秒. 依序是開場, 3 到 4 個賣點或場景, 主視覺, 標題.
 - 重擊點 (剪接, 劍擊, 螢幕點亮) 定成常數, 畫面和音訊共用同一份.
+- AI 混合路線: 生成鏡頭之間穿插程式鏡頭 (介面, 地圖, 字卡). 程式鏡頭不會漂移, 也不用排隊, 可以補足生成片段的可用秒數.
 
 ### 3. 專案結構
 
@@ -67,6 +68,7 @@ from videokit import *
 - `render.py`: 分鏡函式 `shot_xxx(t)`, 回傳線性 HDR 影像. 加上 `render(f)` 處理轉場與後製, 以及 `encode` / `check` 兩種模式.
 - `audio.py`: `build_audio(dur)`, 以及共用的時間常數.
 - 其他素材模組, 例如 `board.py`, `figures.py`.
+- AI 混合路線用 `assemble.py` 取代 `render.py`, 結構相同, 見 `examples/jb/`.
 
 `render.py 60 150 300` 這種「只輸出指定影格的 PNG」模式一定要有. 這是後面自我檢查的基礎.
 
@@ -120,5 +122,8 @@ from videokit import *
 | 轉場中間灰霧 | 交叉淡化時不要再疊加白光 |
 | 整格全白太久 | 閃光峰值控制在 1 到 2 格 |
 | OpenCV 線條有鋸齒 | `LINE_AA` 只對 uint8 有效. 先畫在 uint8 遮罩, 再合成到 float 影像 |
-| AI 片段後段變成另一張臉 | 身分漂移. 只用前 3 到 3.5 秒 |
+| AI 片段後段變成另一張臉 | 身分漂移. 只用前 3 到 3.5 秒. 主角朝鏡頭跑近時, 第 40 格左右就會漂移, 見 `references/ai-hybrid.md` |
+| 生成的車子出現真實品牌標誌 | 用編輯模型去除反而會畫出更清楚的標誌. 改在靜態底圖上用 `cv2.inpaint` 抹掉, 再做圖轉影片 |
+| 監視器底圖變成魚眼圓框, 還多一台攝影機 | 提示詞寫 "fills the entire rectangular frame, flat rectilinear perspective", negative 加 fisheye, circular frame |
+| 追蹤框被遮幅擋住 | 以底部為基準放大素材, 追蹤從目標清楚的那一格往前後兩個方向做, 目標進入遮幅時隱藏追蹤框 |
 | Windows 多行程卡住或報錯 | 呼叫 `encode` 的程式碼要放在 `if __name__ == "__main__":` 之下 |
