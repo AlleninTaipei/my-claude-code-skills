@@ -60,8 +60,8 @@
 
 - 以 NumPy, OpenCV, PIL 逐格繪製畫面, 程序化合成配樂與音效, 再以 PyAV 輸出 MP4.
 - 提供共用模組 videokit.py, 涵蓋緩動, 雜訊, 文字, 剪影邊緣光, 後製調色, 音訊混音與平行編碼.
-- 需要寫實人物時, 可搭配 PixelForge 等影像/影片生成 MCP 產生片段後再剪接調色.
-- 附四個完整案例原始碼 (手機廣告, 主機板廣告, 影集預告, 寫實人物諜報預告), 以及驗證成品串流, 長度與音量的腳本.
+- 需要寫實人物時, 可搭配 PixelForge 等影像/影片生成 MCP 產生片段後再剪接調色. 影片生成限定 MiniMax H3, 以 "段落" 為單位規劃, 一次生成含 2 到 4 個 CUT.
+- 附四個完整案例原始碼 (手機廣告, 主機板廣告, 影集預告, 30 秒寫實人物諜報預告), 以及驗證成品串流, 長度與音量的腳本.
 
 觸發方式: 要求以程式製作或渲染影片, 廣告, 宣傳片, 預告片或片頭.
 
@@ -101,7 +101,7 @@
 | --- | --- |
 | frontend-slides | Node.js 與 Playwright (匯出 PDF), Vercel CLI (部署) |
 | knowledge-youtube-to-markdown | yt-dlp (擷取字幕), 本地轉錄工具 (無字幕時) |
-| programmatic-video | Python: numpy, opencv-python, Pillow, av; 選用影像生成 MCP |
+| programmatic-video | Python: numpy, opencv-python, Pillow, av; 選用影像生成 MCP (影片生成用 MiniMax H3) |
 | video-to-editable-slides | yt-dlp, opencv-python, Pillow; 選用 ffmpeg; 輸出 pptx/PDF 時需 python-pptx, reportlab, pypdf |
 
 ## 使用方式
